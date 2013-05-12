@@ -1,0 +1,9 @@
+ettings_local.py*
+*.pyc
+media/*
+media/upload/*
+media/cache/*
+database.sqlite
+*.pyc
+*~
+.DS_Store

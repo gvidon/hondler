@@ -1,0 +1,15 @@
+{% load thumbnail %}
+{% load i18n %}
+<li id="p{{ product.pk }}" class="product {% if product.featured == "top" %}col3 top{% else %}col2{% endif %}"><div class="gap-wrapper">
+	<h2 class="zeta"><a href="{% url "hondler:details" product.slug %}">{{ product.get_title }}</a></h2>
+	
+	{% if product.images.count %}
+		<a href="{% url "hondler:details" product.slug %}"><img src="{{ product.images.all.0.image|thumbnail_url:'medium' }}" alt=""></a>
+	{% endif %}
+	
+	<ul class="actions">{% spaceless %}
+		<li class="price"><span>&euro;{{ product.unit_price }}</span></li>
+		<li class="to-cart"><a href="">{% trans "Cart" %}</a></li>
+		<li class="loading hidden"><img src="{{ STATIC_URL }}i/loading-tiny.gif" alt=""></li>
+	{% endspaceless %}</ul>
+</div></li>

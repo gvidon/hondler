@@ -1,0 +1,14 @@
+<script>
+	var
+		STATIC_URL = '{{ STATIC_URL }}',
+
+		CART_URLS = function(name, pk) { return {
+			'checkout': '{% url "hondler:checkout" %}',
+			'thankyou': '{% url "hondler:thankyou" %}',
+			'items'   : '{% url "hondler:items" %}',
+			'add'     : '{% url "hondler:add" pk=0 %}',
+			'remove'  : '{% url "hondler:remove" pk=0 %}',
+			'update'  : '{% url "hondler:update" %}',
+			'order'   : '{% url "hondler:order" %}'
+		}[name].replace('/0', '/' + pk) };
+</script>

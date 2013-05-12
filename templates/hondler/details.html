@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+{% load i18n %}
+
+{% block css %}
+	{{ block.super }}
+	<link rel="stylesheet" type="text/css" media="all" href="{{ STATIC_URL }}fancybox/jquery.fancybox.css" />
+	<link rel="stylesheet" type="text/css" media="all" href="{{ STATIC_URL }}fancybox/helpers/jquery.fancybox-thumbs.css" />
+{% endblock %}
+
+{% block js %}
+	{{ block.super }}
+
+	<script>
+		head.ready('jquery', function() {
+			head.js(
+				'{{ STATIC_URL }}fancybox/jquery.fancybox.pack.js',
+				'{{ STATIC_URL }}fancybox/helpers/jquery.fancybox-thumbs.js',
+				
+				function() {
+					$('.gallery').fancybox({
+						'padding': 0,
+						'closeBtn': false,
+
+						'helpers': {
+							'thumbs': {
+								'width': 50,
+								'height': 50
+							}
+						}
+					});
+				}
+			)
+		})
+	</script>
+{% endblock %}
+
+{% block content %}
+	<div id="p{{ object.id }}" class="container product details">
+		<div class="col8">
+			<h2 class="delta">{{ object.get_title }}</h2>
+
+			<ul class="actions">{% spaceless %}
+				<li class="price"><span>&euro;{{ object.unit_price }}</span></li>
+				<li class="to-cart"><a href="">{% trans "Cart" %}</a></li>
+				<li class="loading hidden"><img src="{{ STATIC_URL }}i/loading-tiny.gif" alt=""></li>
+			{% endspaceless %}</ul>
+
+			<p class="description">{{ object.description }}</p>
+		</div>
+
+		<div class="col4">
+			<ul class="images">{% for image in object.images.all %}<li>
+				<a class="gallery" rel="p{{ object.id }}" href="{{ image.image|thumbnail_url:'medium' }}">
+					<img src="{{ image.image|thumbnail_url:'thumb' }}" alt="{% trans "Product image" %}">
+				</a>
+			</li>{% empty %}<li>
+				{% trans "No images for this product" %}
+			</li>{% endfor %}</ul>
+		</div>
+	</div>
+{% endblock %}

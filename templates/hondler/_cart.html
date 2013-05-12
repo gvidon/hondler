@@ -1,0 +1,18 @@
+{% load i18n %}
+<script id="cart" type="text/x-handlebars-template">{% verbatim %}
+	<table>
+		<tbody>
+			{{#items}}<tr id="p{{ id }}">
+				<td class="title">{{ title }}</td>
+				<td class="price">&euro;{{ price }}</td>
+				<td class="quantity">x<input type="text" name="quantity" value="{{ quantity }}"></td>
+				<td class="total">&euro;{{ total }}</td>
+				
+				<td class="actions">
+					<a class="remove" href="#">{% endverbatim %}{% trans "Remove" %}{% verbatim %}</a>
+					<img class="hidden" src="{{ STATIC_URL }}i/loading-tiny-whitebg.gif" alt="Loading...">
+				</td>
+			</tr>{{/items}}
+		</tbody>
+	</table>
+{% endverbatim %}</script>
