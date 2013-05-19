@@ -34,12 +34,14 @@ class Category(models.Model):
 		return self.title
 
 class Product(models.Model):
+	category     = models.ForeignKey(Category, blank=True, null=True)
+	supplier     = models.ForeignKey(Supplier, blank=True, null=True)
+
 	brand        = models.CharField(max_length=32, blank=True, null=True)
 	slug         = models.SlugField(max_length=32)
 	title        = models.CharField(max_length=32)
 	description  = models.TextField(max_length=32, blank=True, null=True)
 	unit_price   = models.FloatField()
-	supplier     = models.ForeignKey(Supplier, blank=True, null=True)
 	available_in = models.IntegerField(blank=True, null=True)
 
 	def get_title(self):
@@ -53,7 +55,7 @@ class Product(models.Model):
 
 class ProductImage(models.Model):
 	product = models.ForeignKey(Product, related_name='images')
-	image   = ThumbnailerImageField(upload_to=settings.HONDLER_IMAGES_UPLOAD)
+	image   = ThumbnailerImageField(upload_to=settings.HONDLER_PRODUCTS_UPLOAD)
 
 class OrderShipping(models.Model):
 	name    = models.CharField(max_length=64, validators=[atleast(2)])

@@ -100,15 +100,17 @@ var Hondler = function(options) {
 
 Hondler.prototype = {
 	add: function(id) {
+		var thiz = this;
+
 		return $.getJSON(this.urls.add(id), function(data, status) {
 			if(status != 'success')
 				return false;
 			
 			// Calculate cart total and render it
-			renderTotal(data);
+			thiz.renderTotal(data);
 			
 			// Render current cart items
-			renderItems(data);
+			thiz.renderItems(data);
 		})
 	},
 
