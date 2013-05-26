@@ -99,16 +99,18 @@ def order(request):
 	return JSON({'success': True})
 
 def remove(request, pk):
-	cart = Cart(request).remove(or404(Product, pk=pk))
+	Cart(request).remove(or404(Product, pk=pk))
 	return items(request)
 
 def update(request):
 	cart = Cart(request)
+
+	def updateItem(I):
+		if not I.get('quantity', 0):
+			cart.remove(or404(Product, pk=I['id']))
+		else:
+			cart_item(cart.cart, I['id']).update(quantity=I.get('quantity'))
 	
-	map(
-		lambda I: cart_item(cart.cart, I['id']).update(quantity=I['quantity']),
-		json.loads(request.POST['items'])
-	)
+	map(updateItem, json.loads(request.POST['items']))
 	
 	return items(request)
-
