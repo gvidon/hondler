@@ -114,6 +114,8 @@ Hondler.prototype = {
 		})
 	},
 
+	itemsCount: function() { return this.items.length },
+
 	remove: function(id) {
 		var thiz = this;
 
@@ -123,18 +125,17 @@ Hondler.prototype = {
 				
 			thiz.renderTotal(data);
 			thiz.renderItems(data);
-			
-			// Redurect to main page when everything removed from cart on checkout page
-			if(window.location.pathname == CART_URLS('checkout') && !data.length)
-				window.location = '/';
 		});
 	},
 
 	// Fill up items container
 	renderItems: function(items, callback) {
 		this.items = items;
-
-		this.$items.html(this.cartTpl({'items': items}));
+		
+		// Do not render empty items
+		this.$items.html(this.cartTpl({
+			items: _.filter(this.items, function(I) { return Boolean(parseInt(I.quantity)) })
+		}));
 
 		if(callback)
 			callback(items);
@@ -154,10 +155,10 @@ Hondler.prototype = {
 		return amount;
 	},
 
-	updateCart: function(getQuantity) {
+	update: function(getQuantity) {
 		// Walk through cart items and update
 		_.each(this.items, function(I) {
-			var quantity = getQuantity(id); //parseInt($(this).closest('.hondler-cart').find('.items tr#p' + I.id + ' .quantity input').val());
+			var quantity = getQuantity(I.id);
 
 			_.extend(I, {
 				quantity: quantity,
@@ -175,8 +176,8 @@ Hondler.prototype = {
 		});
 
 		// Do not wait for request to be completed
-		renderItems(HONDLER.items);
-		renderTotal(HONDLER.items, shipping());
+		this.renderItems(this.items);
+		this.renderTotal(this.items);
 			
 		return false;
 	},

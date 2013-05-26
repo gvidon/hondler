@@ -39,7 +39,7 @@ class Product(models.Model):
 
 	brand        = models.CharField(max_length=32, blank=True, null=True)
 	slug         = models.SlugField(max_length=32)
-	title        = models.CharField(max_length=32)
+	title        = models.CharField(max_length=128)
 	description  = models.TextField(max_length=32, blank=True, null=True)
 	unit_price   = models.FloatField()
 	available_in = models.IntegerField(blank=True, null=True)

@@ -2,17 +2,20 @@
 <script id="cart" type="text/x-handlebars-template">{% verbatim %}
 	<table>
 		<tbody>
-			{{#items}}<tr id="p{{ id }}">
+			{{#items}}<tr>
 				<td class="title">{{ title }}</td>
 				<td class="price">&euro;{{ price }}</td>
-				<td class="quantity">x<input type="text" name="quantity" value="{{ quantity }}"></td>
+				<td class="quantity">x<input class="quantity" type="text" name="quantity" value="{{ quantity }}"></td>
 				<td class="total">&euro;{{ total }}</td>
 				
 				<td class="actions">
-					<a class="remove" href="#">{% endverbatim %}{% trans "Remove" %}{% verbatim %}</a>
-					<img class="hidden" src="{% endverbatim %}{{ STATIC_URL }}{% verbatim %}images/loader-whitebg.gif" alt="Loading...">
+					<a class="remove" data-product-id="{{ id }}" href="#">{% endverbatim %}{% trans "Remove" %}{% verbatim %}</a>
+					<img class="hidden" src="{% endverbatim %}{{ STATIC_URL }}{% verbatim %}images/loader.gif">
 				</td>
 			</tr>{{/items}}
 		</tbody>
 	</table>
+
+	<a class="button update" href="#">{% endverbatim %}{% trans "Save" %}{% verbatim %}</a>
+	<a class="button checkout" href="#">{% endverbatim %}{% trans "Checkout!" %}{% verbatim %}</a>
 {% endverbatim %}</script>
