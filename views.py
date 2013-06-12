@@ -35,8 +35,8 @@ def cart_item(cart, id, **kwargs):
 
 def checkout(request):
 	from django.contrib.auth.models import User
-	from django.core.validators     import email_re
-	return render(request, 'hondler/checkout.html', {})
+	from django.core.validators import email_re
+	return render(request, 'hondler/checkout.html')
 
 def index(request):
 	cart = Cart(request)

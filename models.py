@@ -61,7 +61,7 @@ class OrderShipping(models.Model):
 	name    = models.CharField(max_length=64, validators=[atleast(2)])
 	city    = models.CharField(max_length=32, validators=[atleast(2)])
 	address = models.CharField(max_length=255, validators=[atleast(3)])
-	zip     = models.CharField(max_length=6, validators=[atleast(5), integer])
+	zip     = models.CharField(max_length=6, validators=[atleast(5), integer], blank=True, null=True)
 	phone   = models.CharField(max_length=24, validators=[atleast(5)], blank=True, null=True)
 	email   = models.EmailField(blank=True, null=True)
 	method  = models.CharField(choices=(settings.HONDLER_SHIPPING_OPTIONS), max_length=16)

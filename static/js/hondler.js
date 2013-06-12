@@ -114,6 +114,12 @@ Hondler.prototype = {
 		})
 	},
 
+	getTotal: function(items) {
+		return (_.reduce(items, function(total, item) {
+			return total + parseFloat(item.total)
+		}, 0) + parseFloat(this.shippingCost || 0)).toFixed(2);
+	},
+
 	itemsCount: function() { return this.items.length },
 
 	remove: function(id) {
@@ -145,7 +151,7 @@ Hondler.prototype = {
 
 	// Calcultae items total, render total and run optional callback
 	renderTotal: function(items, callback) {
-		var amount = _.reduce(items, function(total, item) { return total + parseFloat(item.total) }, 0).toFixed(2);
+		var amount = this.getTotal(items);
 
 		this.$total.html(amount);
 
@@ -155,10 +161,15 @@ Hondler.prototype = {
 		return amount;
 	},
 
-	update: function(getQuantity) {
+	setShipping: function(cost) {
+		this.shippingCost = cost;
+		this.renderTotal(this.items);
+	},
+
+	update: function(getQuantityFunc) {
 		// Walk through cart items and update
 		_.each(this.items, function(I) {
-			var quantity = getQuantity(I.id);
+			var quantity = getQuantityFunc(I.id);
 
 			_.extend(I, {
 				quantity: quantity,
