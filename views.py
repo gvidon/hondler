@@ -37,8 +37,8 @@ def checkout(request):
 	from django.contrib.auth.models import User
 	from django.core.validators import email_re
 
-	# if not Cart(request).cart.item_set.all().count():
-	# 	raise Http404
+	if not Cart(request).cart.item_set.all().count():
+		raise Http404
 
 	return render(request, 'hondler/checkout.html')
 
