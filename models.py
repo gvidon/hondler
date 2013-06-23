@@ -72,8 +72,15 @@ class OrderShipping(models.Model):
 
 class Order(models.Model):
 	created_at = models.DateTimeField(auto_now_add=True)
-	user       = models.ForeignKey(User, blank=True, null=True)
-	shipping   = models.ForeignKey(OrderShipping)
+	user = models.ForeignKey(User, blank=True, null=True)
+	shipping = models.ForeignKey(OrderShipping)
+
+	status  = models.CharField(choices=(
+		('needpayment', 'Need payment'),
+		('processing' , 'Processing'),
+		('shipped'    , 'Shipped'),
+		('delivered'  , 'Delivered'),
+	), max_length=16)
 
 	def get_total_cost(self):
 		return sum(map(lambda I: I.unit_price * I.quantity, self.items.all()))
