@@ -70,13 +70,14 @@ def order(request):
 	P = lambda N: request.POST.get(N, '')
 
 	shipping = OrderShipping(
-		name    = P('name'),
-		city    = P('city'),
 		address = P('address'),
-		zip     = P('zip'),
-		phone   = P('phone'),
+		city    = P('city'),
+		cost    = settings.HONDLER_SHIPPING_COSTS[P('method')],
 		email   = P('email'),
 		method  = P('method'),
+		name    = P('name'),
+		phone   = P('phone'),
+		zip     = P('zip'),
 	)
 
 	try:

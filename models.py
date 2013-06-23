@@ -65,6 +65,10 @@ class OrderShipping(models.Model):
 	phone   = models.CharField(max_length=24, validators=[atleast(5)])
 	email   = models.EmailField()
 	method  = models.CharField(choices=(settings.HONDLER_SHIPPING_OPTIONS), max_length=16)
+	cost    = models.FloatField()
+
+	def get_method(self):
+		return dict(settings.HONDLER_SHIPPING_OPTIONS)[self.method]
 
 class Order(models.Model):
 	created_at = models.DateTimeField(auto_now_add=True)
