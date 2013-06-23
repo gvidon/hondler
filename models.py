@@ -74,6 +74,6 @@ class Order(models.Model):
 class OrderItem(models.Model):
 	order      = models.ForeignKey(Order, related_name='items')
 	product    = models.ForeignKey(Product, related_name='order_items')
-	title      = models.CharField(max_length=32)
+	title      = models.CharField(max_length=128)
 	quantity   = models.IntegerField()
 	unit_price = models.FloatField()

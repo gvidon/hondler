@@ -2,7 +2,7 @@ import json
 
 from django.shortcuts import render, get_object_or_404 as or404
 from django.db.models import F
-from django.http      import HttpResponse
+from django.http      import HttpResponse, Http404
 from cart             import Cart, ItemAlreadyExists
 from cart.models      import Item
 
@@ -36,6 +36,10 @@ def cart_item(cart, id, **kwargs):
 def checkout(request):
 	from django.contrib.auth.models import User
 	from django.core.validators import email_re
+
+	if not Cart(request).cart.item_set.all().count():
+		raise Http404
+
 	return render(request, 'hondler/checkout.html')
 
 def index(request):
@@ -96,7 +100,7 @@ def order(request):
 	# Cart.clear() is not yet fixed in pypi
 	cart.cart.item_set.all().delete()
 	
-	return JSON({'success': True})
+	return JSON({'success': True, 'order': order.id})
 
 def remove(request, pk):
 	Cart(request).remove(or404(Product, pk=pk))
