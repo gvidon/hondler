@@ -64,7 +64,6 @@ def items(request):
 def order(request):
 	from django.contrib.auth.models import User
 	from django.core.exceptions     import ValidationError
-	from django.core.mail           import send_mail
 	from django.conf                import settings
 
 	P = lambda N: request.POST.get(N, '')

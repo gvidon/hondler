@@ -28,8 +28,8 @@ Hondler.prototype = {
 		})
 	},
 
-	getTotal: function(items) {
-		return (_.reduce(items, function(total, item) {
+	getTotal: function() {
+		return (_.reduce(this.items, function(total, item) {
 			return total + parseFloat(item.total)
 		}, 0) + parseFloat(this.shippingCost || 0)).toFixed(2);
 	},
@@ -115,8 +115,8 @@ Hondler.prototype = {
 			if(status != 'success')
 				return false;
 
-			thiz.renderTotal(data, totalCb);
 			thiz.renderItems(data, itemsCb);
+			thiz.renderTotal(data, totalCb);
 		});
 	}
 };

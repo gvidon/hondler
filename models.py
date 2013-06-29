@@ -85,6 +85,9 @@ class Order(models.Model):
 	def get_total_cost(self):
 		return sum(map(lambda I: I.unit_price * I.quantity, self.items.all()))
 
+	def get_total_shipped_cost(self):
+		return self.get_total_cost() + self.shipping.cost
+
 class OrderItem(models.Model):
 	order      = models.ForeignKey(Order, related_name='items')
 	product    = models.ForeignKey(Product, related_name='order_items')
