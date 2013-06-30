@@ -10,4 +10,6 @@ setup(
 	author           = 'Artem Rudenko',
 	author_email     = 'nenegoro@gmail.com',
 	url              = 'https://github.com/gvidon/hondler/',
+	package_dir      = {'hondler': './'},
+	packages         = ['hondler'],
 )
