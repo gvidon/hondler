@@ -1,3 +1,3 @@
-import models
-import signals
-import urls
+import hondler.models
+import hondler.signals
+import hondler.urls
