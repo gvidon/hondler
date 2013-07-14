@@ -20,11 +20,11 @@ Hondler.prototype = {
 			if(status != 'success')
 				return false;
 			
-			// Calculate cart total and render it
-			thiz.renderTotal(data);
-			
 			// Render current cart items
 			thiz.renderItems(data);
+			
+			// Calculate cart total and render it
+			thiz.renderTotal(data);
 		})
 	},
 
