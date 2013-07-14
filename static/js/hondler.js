@@ -5,8 +5,8 @@ var Hondler = function(options) {
 	this.$total  = options.total;
 
 	this.urls = {
-		add: options.addURL,
-		items: options.itemsURL,
+		add   : options.addURL,
+		items : options.itemsURL,
 		remove: options.removeURL,
 		update: options.updateURL
 	};
