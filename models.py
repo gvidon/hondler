@@ -80,7 +80,7 @@ class Order(models.Model):
 		('processing' , 'Processing'),
 		('shipped'    , 'Shipped'),
 		('delivered'  , 'Delivered'),
-	), max_length=16)
+	), max_length=16, default='needpayment', blank=True)
 
 	def get_total_cost(self):
 		return sum(map(lambda I: I.unit_price * I.quantity, self.items.all()))
