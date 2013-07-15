@@ -6,7 +6,8 @@ from django.http      import HttpResponse, Http404
 from cart             import Cart, ItemAlreadyExists
 from cart.models      import Item
 
-from models           import *
+from hondler.signals  import order_done
+from hondler.models   import *
 
 
 def handle500(request, template_name='500.html'):
@@ -96,6 +97,8 @@ def order(request):
 		quantity   = I.quantity,
 		unit_price = I.product.unit_price,
 	), cart))
+
+	order_done.send(sender=Order, order=order)
 	
 	# Cart.clear() is not yet fixed in pypi
 	cart.cart.item_set.all().delete()
