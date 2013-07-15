@@ -94,3 +94,6 @@ class OrderItem(models.Model):
 	title      = models.CharField(max_length=128)
 	quantity   = models.IntegerField()
 	unit_price = models.FloatField()
+
+	def get_total(self):
+		return self.unit_price * self.quantity
