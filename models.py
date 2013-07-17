@@ -42,6 +42,7 @@ class Product(models.Model):
 	title        = models.CharField(max_length=128)
 	description  = models.TextField(max_length=32, blank=True, null=True)
 	unit_price   = models.FloatField()
+	availability = models.FloatField() # Quantity or amount of available value to be ordered
 	available_in = models.IntegerField(blank=True, null=True)
 
 	def get_title(self):
